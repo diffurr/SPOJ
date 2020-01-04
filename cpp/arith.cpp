@@ -4,12 +4,22 @@
 #include <string>
 #include <vector>
 
+#if defined(_M_X64) || defined(__amd64__)
+typedef long long int digit;
+#else
 typedef int digit;
+#endif
+
 typedef std::vector<digit> Number;
 
 struct BigInt {
-	static const int base = 10000;
+#if defined(_M_X64) || defined(__amd64__)
+	static const int dim = 9;
+	static const int base = 1000000000;
+#else
 	static const int dim = 4;
+	static const int base = 10000;
+#endif
 	Number number;
 
 	BigInt(std::string);
